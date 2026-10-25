@@ -1,0 +1,10 @@
+{
+  "kind": "evm_contracts",
+  "contracts": [
+    {
+      "contract": "DareComments",
+      "constructorArgs": []
+    }
+  ],
+  "notes": "DareComments keeps the comments under the tasks and proofs of moneycanbuy.fun as events. post(vault, kind, targetId, parentId, text): kind 1 a task, 2 a proof, any other reverts BadKind; text 1..500 bytes of UTF-8, else BadText; parentId 0 is top-level, else it must be a comment of the same (vault, kind, targetId), else BadParent. Ids are global from 1; count is the last id. Every post emits Comment(id, vault, targetId, kind, parentId, author, text, prevBlock), first three indexed, author = msg.sender, prevBlock = block of the thread's previous comment (0 for the first); lastBlock(vault, kind, targetId) is the block of the thread's newest comment, so readers walk back with single-block getLogs. No constructor arguments, no owner, admin, role, pause or upgrade path; no payable, receive, fallback, token call or external call; holds no money. It reads no other contract and none reads it. Hiding goes through the already deployed HiddenList as (DareComments address, 3, id). Accepted limitations: anyone may post with no rate limit; vault and targetId are not checked; text is unfiltered UTF-8; reply depth is unlimited; nothing is deleted. Audited as it arrived: no reproduced finding, source unchanged."
+}
